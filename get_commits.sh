@@ -4,6 +4,7 @@ set -e
 
 echo "Creating registries.conf for brew builds"
 cat << \EOT > ~/.config/containers/registries.conf
+unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "docker.io", "quay.io"]
 [[registry]]
 location="brew.registry.redhat.io"
 EOT
