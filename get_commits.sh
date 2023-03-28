@@ -20,11 +20,9 @@ API_IMG=brew.$(oc get pods -n $NAMESPACE -o jsonpath="{.spec.containers[*].image
 UI_IMG=brew.$(oc get pods -n $NAMESPACE -o jsonpath="{.spec.containers[*].image}" $UI_POD)
 
 echo "Get commit from images"
-API_COMMIT=$(skopeo inspect "docker://$API_IMG" -n | jq '.Labels."io.openshift.build.commit.id"' -r)
-UI_COMMIT=$(skopeo inspect "docker://$UI_IMG" -n | jq '.Labels."io.openshift.build.commit.id"' -r)
+URL_FORKLIFT=$(skopeo inspect "docker://$API_IMG" -n | jq '.Labels."io.openshift.build.commit.url"' -r)
+URL_FORKLIFT_PLUGIN=$(skopeo inspect "docker://$UI_IMG" -n | jq '.Labels."io.openshift.build.commit.url"' -r)
 
-URL_FORKLIFT=https://github.com/kubev2v/forklift/commit/
-URL_FORKLIFT_PLUGIN=https://github.com/kubev2v/forklift-console-plugin/commit/
 echo "----------"
 echo "$URL_FORKLIFT$API_COMMIT"
 echo "$URL_FORKLIFT_PLUGIN$UI_COMMIT"
